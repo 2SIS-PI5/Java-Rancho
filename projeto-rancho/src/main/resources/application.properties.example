@@ -1,0 +1,7 @@
+# Porta do servidor
+server.port=8080
+
+# Credenciais do Twilio
+twilio.account-sid=SEU_ACCOUNT_SID
+twilio.auth-token=SEU_AUTH_TOKEN
+twilio.whatsapp-number=SEU_NUMERO_TWILIO
