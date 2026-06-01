@@ -50,10 +50,10 @@ public class FreelancerDTO {
 
     // Dados Bancários / PIX (armazenados criptografados pelo frontend)
     private String pixChave;   // campo AES-256-GCM — não logar em produção
-    private String pixTipo;    // cpf | email | telefone | aleatoria
-    private String banco;
 
     private LocalDateTime criadoEm;
+
+    private Double mediaAvaliacao;
 
     // ── Getters e Setters ──
 
@@ -120,9 +120,6 @@ public class FreelancerDTO {
     public String getPixChave() { return pixChave; }
     public void setPixChave(String pixChave) { this.pixChave = pixChave; }
 
-    public String getPixTipo() { return pixTipo; }
-    public void setPixTipo(String pixTipo) { this.pixTipo = pixTipo; }
-
-    public String getBanco() { return banco; }
-    public void setBanco(String banco) { this.banco = banco; }
+    public Double getMediaAvaliacao() { return mediaAvaliacao; }
+    public void setMediaAvaliacao(Double mediaAvaliacao) { this.mediaAvaliacao = mediaAvaliacao; }
 }

@@ -40,8 +40,6 @@ public class FreelancerMapper {
         dto.setLongitude(f.getLongitude());
         dto.setDistanciaKm(f.getDistanciaKm());
         dto.setPixChave(f.getPixChave());
-        dto.setPixTipo(f.getPixTipo());
-        dto.setBanco(f.getBanco());
         dto.setCriadoEm(f.getCriadoEm());
         return dto;
     }
@@ -70,8 +68,6 @@ public class FreelancerMapper {
         f.setLongitude(dto.getLongitude());
         f.setDistanciaKm(dto.getDistanciaKm());
         f.setPixChave(dto.getPixChave());
-        f.setPixTipo(dto.getPixTipo());
-        f.setBanco(dto.getBanco());
         f.setCriadoEm(LocalDateTime.now());
         return f;
     }
@@ -97,7 +93,5 @@ public class FreelancerMapper {
         f.setLongitude(dto.getLongitude());
         f.setDistanciaKm(dto.getDistanciaKm());
         if (dto.getPixChave() != null) f.setPixChave(dto.getPixChave());
-        if (dto.getPixTipo() != null) f.setPixTipo(dto.getPixTipo());
-        if (dto.getBanco()   != null) f.setBanco(dto.getBanco());
     }
 }

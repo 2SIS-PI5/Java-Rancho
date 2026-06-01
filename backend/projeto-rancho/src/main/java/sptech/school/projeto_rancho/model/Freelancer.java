@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * Caminho: src/main/java/com/rancho/api/model/Freelancer.java
  */
 @Entity
-@Table(name = "freelancer")
+@Table(name = "funcionarios")
 public class Freelancer {
 
     @Id
@@ -65,12 +65,6 @@ public class Freelancer {
     // ── Dados Bancários / PIX (armazenados criptografados pelo frontend) ──
     @Column(name = "pix_chave", columnDefinition = "TEXT")
     private String pixChave;   // criptografado (AES-256 via frontend)
-
-    @Column(name = "pix_tipo", length = 20)
-    private String pixTipo;    // cpf | email | telefone | aleatoria
-
-    @Column(length = 80)
-    private String banco;
 
     @Column(name = "criado_em")
     private LocalDateTime criadoEm = LocalDateTime.now();
@@ -139,10 +133,4 @@ public class Freelancer {
 
     public String getPixChave() { return pixChave; }
     public void setPixChave(String pixChave) { this.pixChave = pixChave; }
-
-    public String getPixTipo() { return pixTipo; }
-    public void setPixTipo(String pixTipo) { this.pixTipo = pixTipo; }
-
-    public String getBanco() { return banco; }
-    public void setBanco(String banco) { this.banco = banco; }
 }

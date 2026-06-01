@@ -14,6 +14,8 @@ public interface FreelancerRepository extends JpaRepository<Freelancer, Long> {
 
     boolean existsByCpf(String cpf);
 
+    List<Freelancer> findByNomeContainingIgnoreCase(String nome);
+
     List<Freelancer> findByStatus(String status);
 
     List<Freelancer> findByDistanciaKmLessThanEqualAndStatus(double distanciaKm, String status);

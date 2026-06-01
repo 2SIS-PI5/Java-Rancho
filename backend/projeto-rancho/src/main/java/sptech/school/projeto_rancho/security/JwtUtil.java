@@ -57,7 +57,7 @@ public class JwtUtil {
     // ──────────────────────────────────────────────
     // Gerar token JWT para um usuário
     // ──────────────────────────────────────────────
-    public String gerarToken(String email, Long userId, String role) {
+    public String gerarToken(String email, Integer userId, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
         claims.put("role", role);
@@ -81,15 +81,10 @@ public class JwtUtil {
     // ──────────────────────────────────────────────
     // Extrair ID do usuário
     // ──────────────────────────────────────────────
-    public Long extrairUserId(String token) {
-        Object id = getClaims(token).get("userId");
-        if (id instanceof Integer) return ((Integer) id).longValue();
-        return (Long) id;
+    public Integer extrairUserId(String token) {
+        return (Integer) getClaims(token).get("userId");
     }
 
-    // ──────────────────────────────────────────────
-    // Extrair role
-    // ──────────────────────────────────────────────
     public String extrairRole(String token) {
         return (String) getClaims(token).get("role");
     }

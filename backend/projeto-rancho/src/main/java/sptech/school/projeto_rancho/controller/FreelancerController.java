@@ -3,6 +3,7 @@ package sptech.school.projeto_rancho.controller;
 import sptech.school.projeto_rancho.dto.FreelancerDTO;
 import sptech.school.projeto_rancho.model.Freelancer;
 import sptech.school.projeto_rancho.repository.FreelancerRepository;
+import sptech.school.projeto_rancho.service.EscalaFuncionarioService;
 import sptech.school.projeto_rancho.service.FreelancerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class FreelancerController {
 
     @Autowired
     private FreelancerService freelancerService;
+
+    @Autowired
+    private EscalaFuncionarioService escalaFuncionarioService;
 
     // ──────────────────────────────────────────────
     // GET /api/freelancers
@@ -116,6 +120,15 @@ public class FreelancerController {
     public ResponseEntity<List<FreelancerDTO>> proximos(
             @RequestParam(defaultValue = "15") double raioKm) {
         return ResponseEntity.ok(freelancerService.listarPorDistancia(raioKm));
+    }
+
+    // ──────────────────────────────────────────────
+    // GET /api/freelancers/estatisticas/por-setor
+    // Contagem de freelancers agrupados por setor (gráfico de pizza)
+    // ──────────────────────────────────────────────
+    @GetMapping("/estatisticas/por-setor")
+    public ResponseEntity<List<Map<String, Object>>> contarPorSetor() {
+        return ResponseEntity.ok(escalaFuncionarioService.contarPorSetor());
     }
 }
 
