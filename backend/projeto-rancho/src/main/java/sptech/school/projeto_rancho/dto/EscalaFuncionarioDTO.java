@@ -1,27 +1,42 @@
 package sptech.school.projeto_rancho.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
+@Schema(description = "Vínculo de um freelancer a uma escala")
 public class EscalaFuncionarioDTO {
 
+    @Schema(description = "ID do vínculo", accessMode = Schema.AccessMode.READ_ONLY)
     private Integer id;
 
+    @Schema(description = "ID da escala", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "ID da escala é obrigatório")
     private Long escalaId;
 
+    @Schema(description = "ID do freelancer", example = "5", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "ID do freelancer é obrigatório")
     private Long freelancerId;
 
+    @Schema(description = "Nome do freelancer", accessMode = Schema.AccessMode.READ_ONLY)
     private String freelancerNome;
+
+    @Schema(description = "CEP do freelancer", accessMode = Schema.AccessMode.READ_ONLY)
     private String freelancerCep;
+
+    @Schema(description = "Distância do freelancer até o rancho (km)", accessMode = Schema.AccessMode.READ_ONLY)
     private Double freelancerDistancia;
 
+    @Schema(description = "ID do setor atribuído ao freelancer nesta escala", example = "2")
     private Integer setorId;
-    private String  setorNome;
 
+    @Schema(description = "Nome do setor", accessMode = Schema.AccessMode.READ_ONLY)
+    private String setorNome;
+
+    @Schema(description = "Valor total calculado para o freelancer nesta escala", accessMode = Schema.AccessMode.READ_ONLY)
     private BigDecimal valorTotal;
 
+    @Schema(description = "Indica se o freelancer compareceu à escala", example = "true")
     private Boolean compareceu;
 
     public Integer getId() { return id; }

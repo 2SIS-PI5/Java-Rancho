@@ -1,27 +1,37 @@
 package sptech.school.projeto_rancho.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@Schema(description = "Escala de trabalho")
 public class EscalaDTO {
 
+    @Schema(description = "ID da escala", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
+    @Schema(description = "Data da escala", example = "2025-06-20", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "Data é obrigatória")
     private LocalDate dataEscala;
 
+    @Schema(description = "Hora de início", example = "08:00", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "Hora de início é obrigatória")
     private LocalTime horaInicio;
 
+    @Schema(description = "Hora de término", example = "18:00", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "Hora de término é obrigatória")
     private LocalTime horaFim;
 
+    @Schema(description = "Status da escala", example = "Agendada",
+            allowableValues = {"Agendada", "Realizada", "Cancelada"})
     private String statusEscala = "Agendada";
 
+    @Schema(description = "Observações adicionais", example = "Evento especial de fim de semana")
     private String observacoes;
 
+    @Schema(description = "Data/hora de criação do registro", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime criadoEm;
 
     public Long getId() { return id; }
