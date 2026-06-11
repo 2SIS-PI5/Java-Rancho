@@ -36,24 +36,16 @@ public class AvaliacaoController {
 
     @GetMapping("/media/{freelancerId}")
     public ResponseEntity<?> media(@PathVariable Long freelancerId) {
-        try {
-            Double media = avaliacaoService.mediaPorFreelancer(freelancerId);
-            return ResponseEntity.ok(Map.of(
-                "freelancerId", freelancerId,
-                "media",         media
-            ));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-        }
+        Double media = avaliacaoService.mediaPorFreelancer(freelancerId);
+        return ResponseEntity.ok(Map.of(
+            "freelancerId", freelancerId,
+            "media", media
+        ));
     }
 
     @PostMapping
     public ResponseEntity<?> criar(@Valid @RequestBody AvaliacaoDTO dto) {
-        try {
-            AvaliacaoDTO criada = avaliacaoService.criar(dto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(criada);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-        }
+        AvaliacaoDTO criada = avaliacaoService.criar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(criada);
     }
 }

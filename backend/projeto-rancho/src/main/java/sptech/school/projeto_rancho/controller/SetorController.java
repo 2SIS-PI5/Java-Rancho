@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/setores")
@@ -33,29 +32,17 @@ public class SetorController {
 
     @PostMapping
     public ResponseEntity<?> criar(@Valid @RequestBody SetorDTO dto) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(setorService.criar(dto));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(setorService.criar(dto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Integer id, @Valid @RequestBody SetorDTO dto) {
-        try {
-            return ResponseEntity.ok(setorService.atualizar(id, dto));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-        }
+        return ResponseEntity.ok(setorService.atualizar(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> excluir(@PathVariable Integer id) {
-        try {
-            setorService.excluir(id);
-            return ResponseEntity.ok(Map.of("success", true));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-        }
+        setorService.excluir(id);
+        return ResponseEntity.ok().build();
     }
 }

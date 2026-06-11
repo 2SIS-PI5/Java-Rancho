@@ -45,37 +45,22 @@ public class EscalaController {
 
     @PostMapping
     public ResponseEntity<?> criar(@Valid @RequestBody EscalaDTO dto) {
-        try {
-            EscalaDTO criada = escalaService.criar(dto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(criada);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("message", e.getMessage()));
-        }
+        EscalaDTO criada = escalaService.criar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(criada);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(
             @PathVariable Long id,
             @Valid @RequestBody EscalaDTO dto) {
-        try {
-            EscalaDTO atualizada = escalaService.atualizar(id, dto);
-            return ResponseEntity.ok(atualizada);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("message", e.getMessage()));
-        }
+        EscalaDTO atualizada = escalaService.atualizar(id, dto);
+        return ResponseEntity.ok(atualizada);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> excluir(@PathVariable Long id) {
-        try {
-            escalaService.excluir(id);
-            return ResponseEntity.ok(Map.of("success", true));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("message", e.getMessage()));
-        }
+        escalaService.excluir(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/estatisticas/semana-passada")

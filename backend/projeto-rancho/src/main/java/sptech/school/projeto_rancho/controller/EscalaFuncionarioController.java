@@ -31,25 +31,17 @@ public class EscalaFuncionarioController {
     public ResponseEntity<?> adicionar(
             @PathVariable Long escalaId,
             @Valid @RequestBody EscalaFuncionarioDTO dto) {
-        try {
-            dto.setEscalaId(escalaId);
-            EscalaFuncionarioDTO criado = service.adicionar(escalaId, dto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(criado);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-        }
+        dto.setEscalaId(escalaId);
+        EscalaFuncionarioDTO criado = service.adicionar(escalaId, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(criado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> remover(
             @PathVariable Long escalaId,
             @PathVariable Integer id) {
-        try {
-            service.remover(escalaId, id);
-            return ResponseEntity.ok(Map.of("success", true, "message", "Funcionário removido da escala."));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-        }
+        service.remover(escalaId, id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/comparecimento")

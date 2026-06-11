@@ -48,8 +48,7 @@ public class HistoricoController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
 
         if (inicio == null || fim == null) {
-            return ResponseEntity.badRequest()
-                    .body(Map.of("message", "Os parâmetros 'inicio' e 'fim' são obrigatórios. Ex: ?inicio=2025-01-01&fim=2025-01-31"));
+            return ResponseEntity.badRequest().build();
         }
         List<EscalaDTO> escalas = escalaService.listar(inicio, fim);
         return ResponseEntity.ok(escalas);
@@ -60,16 +59,16 @@ public class HistoricoController {
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
 
-        LocalDate d           = data != null ? data : LocalDate.now();
+        LocalDate d = data != null ? data : LocalDate.now();
         LocalDate inicioSemana = d.with(DayOfWeek.MONDAY);
-        LocalDate fimSemana    = inicioSemana.plusDays(6);
+        LocalDate fimSemana = inicioSemana.plusDays(6);
 
         List<EscalaDTO> escalas = escalaService.listar(inicioSemana, fimSemana);
 
         Map<String, Object> resposta = new HashMap<>();
         resposta.put("semanaInicio", inicioSemana.toString());
-        resposta.put("semanaFim",    fimSemana.toString());
-        resposta.put("escalas",      escalas);
+        resposta.put("semanaFim", fimSemana.toString());
+        resposta.put("escalas", escalas);
         return ResponseEntity.ok(resposta);
     }
 }

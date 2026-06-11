@@ -89,21 +89,21 @@ public class PagamentoService {
     public Map<String, Object> resumoHome() {
         LocalDate hoje = LocalDate.now();
 
-        LocalDateTime inicioMes  = hoje.withDayOfMonth(1).atStartOfDay();
-        LocalDateTime fimMes     = hoje.withDayOfMonth(hoje.lengthOfMonth()).atTime(LocalTime.MAX);
+        LocalDateTime inicioMes = hoje.withDayOfMonth(1).atStartOfDay();
+        LocalDateTime fimMes = hoje.withDayOfMonth(hoje.lengthOfMonth()).atTime(LocalTime.MAX);
 
         LocalDateTime inicioTrim = hoje.minusMonths(2).withDayOfMonth(1).atStartOfDay();
-        LocalDateTime fimTrim    = fimMes;
+        LocalDateTime fimTrim = fimMes;
 
-        LocalDateTime inicioAno  = hoje.withDayOfYear(1).atStartOfDay();
-        LocalDateTime fimAno     = hoje.withDayOfYear(hoje.lengthOfYear()).atTime(LocalTime.MAX);
+        LocalDateTime inicioAno = hoje.withDayOfYear(1).atStartOfDay();
+        LocalDateTime fimAno = hoje.withDayOfYear(hoje.lengthOfYear()).atTime(LocalTime.MAX);
 
         Map<String, Object> resumo = new HashMap<>();
-        resumo.put("totalMensal",              safe(repo.totalPagoPeriodo(inicioMes,  fimMes)));
-        resumo.put("totalTrimestral",          safe(repo.totalPagoPeriodo(inicioTrim, fimTrim)));
-        resumo.put("totalAnual",               safe(repo.totalPagoPeriodo(inicioAno,  fimAno)));
-        resumo.put("totalMensalDinheiro",      safe(repo.totalPorFormaPeriodo("Dinheiro", inicioMes, fimMes)));
-        resumo.put("totalMensalPix",           safe(repo.totalPorFormaPeriodo("Pix",      inicioMes, fimMes)));
+        resumo.put("totalMensal", safe(repo.totalPagoPeriodo(inicioMes, fimMes)));
+        resumo.put("totalTrimestral", safe(repo.totalPagoPeriodo(inicioTrim, fimTrim)));
+        resumo.put("totalAnual", safe(repo.totalPagoPeriodo(inicioAno, fimAno)));
+        resumo.put("totalMensalDinheiro", safe(repo.totalPorFormaPeriodo("Dinheiro", inicioMes, fimMes)));
+        resumo.put("totalMensalPix", safe(repo.totalPorFormaPeriodo("Pix", inicioMes, fimMes)));
         return resumo;
     }
 
@@ -114,43 +114,43 @@ public class PagamentoService {
         switch (periodo != null ? periodo.toLowerCase() : "mensal") {
             case "trimestral":
                 inicio = hoje.minusMonths(2).withDayOfMonth(1).atStartOfDay();
-                fim    = hoje.withDayOfMonth(hoje.lengthOfMonth()).atTime(LocalTime.MAX);
+                fim = hoje.withDayOfMonth(hoje.lengthOfMonth()).atTime(LocalTime.MAX);
                 break;
             case "anual":
                 inicio = hoje.withDayOfYear(1).atStartOfDay();
-                fim    = hoje.withDayOfYear(hoje.lengthOfYear()).atTime(LocalTime.MAX);
+                fim = hoje.withDayOfYear(hoje.lengthOfYear()).atTime(LocalTime.MAX);
                 break;
             default:
                 inicio = hoje.withDayOfMonth(1).atStartOfDay();
-                fim    = hoje.withDayOfMonth(hoje.lengthOfMonth()).atTime(LocalTime.MAX);
+                fim = hoje.withDayOfMonth(hoje.lengthOfMonth()).atTime(LocalTime.MAX);
         }
 
         BigDecimal total = safe(repo.totalPorSetorPeriodo(setorId, inicio, fim));
 
         Map<String, Object> map = new HashMap<>();
-        map.put("setorId",  setorId);
-        map.put("periodo",  periodo);
-        map.put("total",    total);
+        map.put("setorId", setorId);
+        map.put("periodo", periodo);
+        map.put("total", total);
         return map;
     }
 
     public Map<String, Object> resumoHistorico(LocalDate data) {
         LocalDate d = data != null ? data : LocalDate.now();
 
-        LocalDate inicioSemana = d.with(java.time.DayOfWeek.MONDAY);
-        LocalDate fimSemana    = inicioSemana.plusDays(6);
+        LocalDate inicioSemana = d.with(DayOfWeek.MONDAY);
+        LocalDate fimSemana = inicioSemana.plusDays(6);
         LocalDateTime ini = inicioSemana.atStartOfDay();
         LocalDateTime fim = fimSemana.atTime(LocalTime.MAX);
 
         Map<String, Object> resumo = new HashMap<>();
-        resumo.put("diaSelecionado",        d.toString());
-        resumo.put("totalSemana",           safe(repo.totalPagoPeriodo(ini, fim)));
-        resumo.put("totalSemanaDinheiro",   safe(repo.totalPorFormaPeriodo("Dinheiro", ini, fim)));
-        resumo.put("totalSemanaPix",        safe(repo.totalPorFormaPeriodo("Pix",      ini, fim)));
-        resumo.put("totalDia",              safe(repo.totalPagoPorDia(d)));
-        resumo.put("totalDiaDinheiro",      safe(repo.totalPorFormaDia("Dinheiro", d)));
-        resumo.put("totalDiaPix",           safe(repo.totalPorFormaDia("Pix",      d)));
-        resumo.put("funcionariosPagosDia",  repo.countFuncionariosPagosDia(d));
+        resumo.put("diaSelecionado", d.toString());
+        resumo.put("totalSemana", safe(repo.totalPagoPeriodo(ini, fim)));
+        resumo.put("totalSemanaDinheiro", safe(repo.totalPorFormaPeriodo("Dinheiro", ini, fim)));
+        resumo.put("totalSemanaPix", safe(repo.totalPorFormaPeriodo("Pix", ini, fim)));
+        resumo.put("totalDia", safe(repo.totalPagoPorDia(d)));
+        resumo.put("totalDiaDinheiro", safe(repo.totalPorFormaDia("Dinheiro", d)));
+        resumo.put("totalDiaPix", safe(repo.totalPorFormaDia("Pix", d)));
+        resumo.put("funcionariosPagosDia", repo.countFuncionariosPagosDia(d));
         return resumo;
     }
 
@@ -204,8 +204,8 @@ public class PagamentoService {
 
     public List<PagamentoDTO> listarSemana(LocalDate data) {
         LocalDate d = data != null ? data : LocalDate.now();
-        LocalDate inicio = d.with(java.time.DayOfWeek.MONDAY);
-        LocalDate fim    = inicio.plusDays(6);
+        LocalDate inicio = d.with(DayOfWeek.MONDAY);
+        LocalDate fim = inicio.plusDays(6);
         return repo.findBySemana(inicio.atStartOfDay(), fim.atTime(LocalTime.MAX))
                 .stream().map(mapper::toDTO).collect(Collectors.toList());
     }

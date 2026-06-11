@@ -27,9 +27,9 @@ public class PagamentoController {
             @RequestParam(required = false) String status,
             @RequestParam(required = false) Integer setorId) {
 
-        if (forma   != null && !forma.isBlank())   return ResponseEntity.ok(service.listarPorForma(forma));
-        if (status  != null && !status.isBlank())  return ResponseEntity.ok(service.listarPorStatus(status));
-        if (setorId != null)                        return ResponseEntity.ok(service.listarPorSetor(setorId));
+        if (forma != null && !forma.isBlank()) return ResponseEntity.ok(service.listarPorForma(forma));
+        if (status != null && !status.isBlank()) return ResponseEntity.ok(service.listarPorStatus(status));
+        if (setorId != null) return ResponseEntity.ok(service.listarPorSetor(setorId));
         return ResponseEntity.ok(service.listarTodos());
     }
 
@@ -40,23 +40,15 @@ public class PagamentoController {
 
     @PostMapping
     public ResponseEntity<?> criar(@Valid @RequestBody PagamentoDTO dto) {
-        try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(dto));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(dto));
     }
 
     @PatchMapping("/{id}/pagar")
     public ResponseEntity<?> pagar(
             @PathVariable Integer id,
             @RequestBody Map<String, String> body) {
-        try {
-            String forma = body.get("forma");
-            return ResponseEntity.ok(service.pagar(id, forma));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
-        }
+        String forma = body.get("forma");
+        return ResponseEntity.ok(service.pagar(id, forma));
     }
 
     @GetMapping("/resumo/home")
