@@ -59,6 +59,8 @@ public class SecurityConfig {
         "/api/auth/verificar-codigo",
         "/api/auth/redefinir-senha",
         "/h2-console/**",   // só dev
+        "/actuator/**",      // monitoramento
+        "/webhook",
         "/actuator/**",     // monitoramento
         "/swagger-ui/**",
         "/swagger-ui.html",

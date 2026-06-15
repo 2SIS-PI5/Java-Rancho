@@ -50,6 +50,6 @@ app.frontend-url=${APP_FRONTEND_URL:}
 server.port=8080
 
 # Credenciais do Twilio
-twilio.account-sid=${TWILIO_ACCOUNT_SID}
-twilio.auth-token=${TWILIO_AUTH_TOKEN}
-twilio.whatsapp-number=${TWILIO_NUMBER}
+twilio.account-sid=SEU_SID_AQUI
+twilio.auth-token=SEU_TOKEN_AQUI
+twilio.whatsapp-number=NUMERO_TWILIO
