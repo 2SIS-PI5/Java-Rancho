@@ -5,7 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sptech.school.projeto_rancho.model.CarregarWebhook;
-import sptech.school.projeto_rancho.Service.WhatsAppService;
+import sptech.school.projeto_rancho.service.WhatsAppService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
